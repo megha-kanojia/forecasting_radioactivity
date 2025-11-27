@@ -7,87 +7,87 @@ output:
   html_document: default
 ---
 
-#Monthly Forecasting in the Czech Republic: A Comparative Study of SARIMA, ETS, and TBATS Models on the Monthly Forecasting of Atmospheric Radioactivity
+Monthly Forecasting in Czech Republic: Comparative Analysis of SARIMA, ETS and TBATS Model on monthly forecasting of atmospheric radioactivity.
 
 ##Problem Statement
 
-Environmental radioactivity is continuously monitored across Europe to detect abnormal radiation trends, identify potential contamination events, and assess long-term public-health and environmental risks. However, these radiation readings are often noisy, irregular, and influenced by seasonal atmospheric factors, making it challenging to accurately forecast future activity levels and distinguish normal variability from unusual spikes.
+Environmental radioactivity is a continuous monitoring in Europe to determine abnormal radioactivity pattern, identification of any possible cases of contamination and to evaluate the long time of the population-health and environmental hazards. These radiation readings are usually however, noisy, irregular, and even seasonal atmospheric variations, and thus they are not easy to accurately predict the future level of activity and differentiate between normal variation and abnormal peaks.
 
-This project aims to build a robust time-series forecasting model that can predict monthly radioactivity levels for a European Union country using historical measurements collected between 2011 and 2020. Forecasting radiation levels is essential for:
-	•	early detection of abnormal increases
-	•	assessing baseline environmental exposure
-	•	helping regulatory agencies plan monitoring strategies
-	•	understanding long-term environmental stability
+The objective of this project is to develop a strong time-series forecasting model capable of its applicability to predict monthly radioactivity levels of a country in the European Union based on past measurements that occurred between 2011-2020. Radiation levels can be predicted where necessary to:
+	•	early abnormal increase detection.
+	•	evaluating environmental background exposure.
+	•	assisting regulatory agencies in strategy planning of monitoring.
+	•	knowledge of the stability of the environment in the long run.
 
-Because time-series modeling requires clean seasonal patterns, stable variance, and predictable dynamics, it is essential to choose a country whose radiation measurements exhibit a well-defined structure suitable for statistical modeling.
+Since time-series modeling involves clean seasonal patterns, consistent variance, and predictable changes, a country with measurements of radiations with a clear structure that can be statistically modeled needs to be taken.
 
 
-##Why the Czech Republic Was Chosen
+The Czech Republic was chosen because of the following reasons.
 
-During exploratory analysis of all available EU countries, the Czech Republic emerged as the strongest candidate for accurate and meaningful time-series forecasting. This choice is data-driven and scientifically justified:
+In the course of exploratory analysis of all possible EU countries, the Czech Republic became the best candidate to be used in the accurate and meaningful time-series forecasting. This decision is empirical and scientifically explained:
 
-1. Strong, consistent seasonal patterns
+1. Powerful, stable seasonal trends.
 
-The Czech dataset displays clear annual cycles (winter peaks, spring dips, autumn rises).
+The Czech data are characterized by evident annual cycles (peaks in winter, saddles in spring, and peaks in autumn).
 This seasonality is:
 	•	statistically significant
 	•	highly regular across years
-	•	ideal for SARIMA, ETS, and Prophet models
+	•	sports ETS, Prophet and SARIMA well.
 
-Countries like Romania had almost no stable seasonality.
+In some countries such as Romania, there was hardly any steady seasonality.
 
 
-2. Stable long-term trend and low noise
+2. Constant long run pattern and minimal noise.
 
-The Czech Republic data shows:
-	•	smooth multi-year trend behavior
-	•	limited measurement crashes
+The Czech Republic statistics indicate:
+	•	continuous multi-year trend behaviour.
+	•	crashes of measurements which are limited.
 	•	fewer extreme spikes
 	•	constant variance over time
 
-This makes the dataset highly suitable for ARIMA-class forecasting.
+That is why this dataset is very appropriate to ARIMA-class forecasting.
 
-Other countries displayed high noise, long flat periods, or erratic spikes (e.g., Romania, Bulgaria).
+In other countries, noise was high, regular flat or spikes were irregular (e.g. Romania, Bulgaria).
 
 
-3. Environmentally meaningful radiation behavior
+3. Radiation behavior that is environmental meaningful.
 
 Czech Republic is known for:
-	•	high natural radon levels (one of highest in Europe) due to granite geology
-	•	two major nuclear power plants (Temelín and Dukovany)
-	•	legacy uranium mining regions (Jáchymov, Příbram)
+	•	granite geology, which results in high levels of natural radon (one of the highest in Europe)
+	• 2 large nuclear power stations (Temelín and Dukovany)
+	•	old uranium mines (Jáchymov, Pribram)
 
-These contribute to stable, seasonally driven background radiation — exactly the kind of structure that forecasting models can exploit.
+These add to the background radiation that is steady and seasonally modulated - the very type of structure that forecasting models can take advantage of.
 
 
-4. Excellent statistical diagnostics
+4. Superior statistical diagnostics.
 
 When tested:
-	•	ADF & KPSS indicate near-stationary behavior
-	•	STL decomposition reveals strong seasonality + smooth trend
-	•	ACF/PACF show clear autoregressive and seasonal components
-	•	Residuals from SARIMA modeling behave like white noise
-	•	Ljung–Box test confirms model adequacy
+	• ADF and KPSS are near-stationary.
+	Evaluations: strong seasonality + smooth trend.
+	ACF/PACF The autoregressive and seasonal components are evident.
+	•	SARIMA modeling Residuals follow white noise.
+	LjungBox test makes sure that models are adequate.
 
-This indicates the data is highly forecastable, unlike other EU countries with irregular measurement structures.
+This means that the data is very predictable as compared to other EU countries where the structures of measurements are rather irregular.
 
 
-5. Reliable forecasts with narrow confidence intervals
+5. Predictable future decisions at close confidence levels.
 
 The Czech model produced:
 	•	stable 12- and 24-month forecasts
-	•	realistic seasonal projections
+	•	realistic seasonal forecasts.
 	•	narrow uncertainty bands
-	•	no artificial long-term decline or explosion
+	•	no artificial long-run deterioration or burst.
 
-This demonstrates that the Czech dataset is not only modelable, but produces meaningful predictions that could assist environmental monitoring.
+This shows that the Czech data is not only that which can be modeled, but yields useful predictions which can be used in environmental monitoring.
 
 
-Final Problem Definition
+## Final Problem Definition
 
-The objective of this project is to model and forecast monthly environmental radioactivity levels in the Czech Republic using SARIMA-based time series methods, providing a reliable predictive tool to support environmental safety, anomaly detection, and long-term monitoring.
+This project aims to predict and estimate the environmental radioactivity levels in the month in the Czech Republic by applying the time series methods based on SARIMA to have a reliable prediction tool that can be used to support the environmental safety, anomalies, and long-term monitoring.
 
-The Czech Republic was selected as the focus of this study because its radiation data showed the strongest and most interpretable statistical structure of all EU countries analyzed — exhibiting stable trends, clear seasonality, low noise, and well-behaved residuals that make it ideal for forecasting applications.
+The Czech Republic was chosen as the object of this study due to the radiation data demonstrating the best and the most interpretable statistical framework of all EU countries studied - stable trends, a distinct seasonality, low noise, and well-behaved residuals that make it the best object of forecasting applications.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -287,14 +287,14 @@ ADF Test (p-value = 0.091)
 	•	p-value = 0.091 (> 0.05)
 	•	Cannot reject non-stationarity
 
-→ ADF alone suggests maybe non-stationary, but only borderline.
+ADF alone suggests maybe non-stationary, but only borderline.
 
 
 KPSS Test (p-value = 0.1)
 	•	Null hypothesis (H₀): series is stationary
 	•	p-value = 0.1 (> 0.05)
 	•	✔️ Fail to reject H₀
-→ KPSS says series is stationary
+KPSS says series is stationary
 
  The series is trend-stationary, not difference-stationary.
 
@@ -308,12 +308,11 @@ A smooth trend and strong seasonality.
 
 Rule of thumb for ARIMA modeling:
 
-✔ If ADF is borderline (0.05–0.10)
-✔ And KPSS is > 0.05
-→ Do NOT difference yet.
+If ADF is borderline (0.05–0.10)
+And KPSS is > 0.05 Do NOT difference 
 
 ARIMA with d = 0 is worth trying first
-→ especially when strong seasonality exists.
+especially when strong seasonality exists.
 
 Differencing too early removes meaningful structure, especially seasonality.
 
@@ -334,12 +333,12 @@ checkresiduals(fit0)
 AR (Autoregressive)
 
 Forecast depends on past values
-→ uses PACF to identify
+
 
 MA (Moving Average)
 
 Forecast depends on past errors
-→ uses ACF to identify
+ uses ACF to identify
 
 d (Differencing)
 
@@ -352,9 +351,7 @@ for m = frequency (12 for months)
 
 Czech model:
 	•	(3,0,0)(1,0,1)[12]
-→ strong seasonality
-→ mild short-memory structure
-→ no differencing needed
+strong seasonality mild short-memory structure no differencing needed
 
 
 MODEL IDENTIFIED
@@ -382,34 +379,33 @@ It’s a very healthy SARIMA structure.
 
  Seasonal terms
 	•	sar1 = 0.8774 (strong)
-→ high persistence year-to-year
+ high persistence year-to-year
 	•	sma1 = –0.6789
-→ seasonal shock correction
+seasonal shock correction
 
-Together, they imply strong annual structure — you saw this in the STL and monthly plot.
+Together, they imply strong annual structure , in the STL and monthly plot.
 
  Non-seasonal AR terms
 	•	ar1, ar2 are small and near zero
 	•	ar3 = 0.4055 (significant)
-→ moderate short-term autocorrelation at lag 3
+moderate short-term autocorrelation at lag 3
 
-This is consistent with the ACF/PACF shape you posted.
+
 
 2. ERROR METRICS (Training Set)
 
-✔ RMSE = 42.8
+RMSE = 42.8
 
 Lower than Romania, indicating much better stability.
-
-✔ MASE = 0.76
+ MASE = 0.76
 
 (MASE < 1 means the model beats a naive forecast.)
 
-✔ ME close to zero
+ME close to zero
 
-→ No systematic over/under-predicting.
+ No systematic over/under-predicting.
 
-⚠ MAPE looks huge
+MAPE looks huge
 	•	Ignore MAPE because MAPE blows up when data includes values close to zero (Czech dataset has some months near zero).
 	•	RMSE + MASE are better measures.
 
@@ -422,7 +418,7 @@ A) Residual plot (top panel)
 	•	No visible trends
 	•	A few spikes, but not systematic
 
-→ Good.
+
 
 
 
@@ -431,7 +427,7 @@ B) ACF of residuals
 	•	No repeating seasonal pattern
 	•	No autocorrelation left to model
 
-→ Model has captured the structure cleanly.
+Model has captured the structure cleanly.
 
 
 
@@ -439,8 +435,7 @@ C) Residual histogram
 	•	Approximately bell-shaped
 	•	Slight skew (normal in environmental datasets)
 	•	No multimodal behavior
-
-→ Residual distribution normal enough for forecasting.
+ Residual distribution normal enough for forecasting.
 
 
 ```{r}
@@ -547,9 +542,8 @@ This is expected in SARIMA models:
 The widening is natural and shows proper uncertainty handling.
 
 
-♻ 4. Seasonal pattern preserved
+4. Seasonal pattern preserved
 
-You can see in the 12-month plot:
 	•	February/March upward tick
 	•	May/June slight dip
 	•	October peak
@@ -557,18 +551,18 @@ You can see in the 12-month plot:
 
 This mirrors the strong annual seasonality detected in STL and PACF.
 
-→ Seasonal forecasting is working perfectly.
+ Seasonal forecasting is working perfectly.
 
 
  5. Model behavior matches residual diagnostics
 
-Because your residuals were:
+
 	•	white noise
 	•	non-autocorrelated
 	•	normally distributed
 	•	Ljung–Box p > 0.05
 
-Your forecasts are trustworthy.
+
 
 Everything aligns:
 Model fit → Residuals → Seasonality → Forecast behavior
@@ -683,15 +677,11 @@ MAE    = 34.26
 MASE   = 0.559  
 ACF1   = -0.077
 
-Excellent — now that you have the forecast comparison plot and the accuracy metrics, we can make a clear, data-driven conclusion about which model is the best.
 
-Let’s interpret your three accuracy tables:
 
 
 Model Accuracy Summary
 
-You provided three sets of metrics (SARIMA, ETS, TBATS).
-Let’s label them properly:
 
 SARIMA:
 ME     = -0.5190  
@@ -714,19 +704,16 @@ MAE    = 34.26
 MASE   = 0.559  
 ACF1   = -0.077
 
-Let’s analyze them from most important → less important.
-
 
  1. Root Mean Squared Error (RMSE)
 
-The most important metric for forecasting.
 
 Model	RMSE	Interpretation
 ETS	41.04	Best (lowest error)
 SARIMA	42.84	Good
 TBATS	49.54	Worst of the three
 
- ETS wins on RMSE (lower error by a meaningful margin).
+ ETS wins on RMSE 
 
 
  2. Mean Absolute Error (MAE)
@@ -775,7 +762,7 @@ MAE	ETS	SARIMA	TBATS
 MASE	TBATS	ETS	SARIMA
 ACF1 (clean residuals)	ETS	TBATS	SARIMA
 
-Now weigh them:
+
 	•	RMSE & MAE are more important than MASE.
 	•	ACF1 also matters for future accuracy.
 
@@ -806,7 +793,7 @@ ETS uses:
 	•	Trend (T)
 	•	Seasonality (S)
 
-Your Czech data has:
+ Czech data has:
 	•	smooth long-term trend
 	•	regular seasonality
 	•	moderate noise
@@ -815,7 +802,7 @@ ETS is perfect for this.
 
 SARIMA handles autocorrelation well, but Czech data has more smooth seasonality than AR structure.
 
-TBATS is built for complex and multiple seasonalities — your seasonality is strong but simple.
+TBATS is built for complex and multiple seasonalities 
 
 Result → ETS is the best match.
 
@@ -933,12 +920,10 @@ This is an excellent, well-behaved model with:
 	•	the lowest bias (ME close to zero)
 	•	the best theoretical consistency with the dataset structure
 
-This confirms your earlier intuition — Czech Republic is highly suitable for SARIMA models because of its stable seasonal radiation pattern.
+ Czech Republic is highly suitable for SARIMA models because of its stable seasonal radiation pattern.
 
 
- What You Should Write in Your Report
-
-Here’s a clean, professional summary:
+ 
 
 
 Final Model Selection Summary
@@ -974,7 +959,7 @@ plot(window(ts_czech, start = start(train)), col = "black", lwd = 1.2,
      ylab = "Activity level", xlab = "Time", main = "Train (black) + Test (grey) and Forecasts")
 lines(window(ts_czech, start = start(test)), col = "grey60", lwd = 1.2)
 
-# Overlay forecast means
+
 lines(ts(fc_sarima$mean, start = start(test), frequency = 12), col = "darkgreen", lwd = 1.2)
 lines(ts(fc_ets$mean,    start = start(test), frequency = 12), col = "firebrick", lwd = 1.2)
 lines(ts(fc_tbats$mean,  start = start(test), frequency = 12), col = "royalblue", lwd = 1.2)
@@ -1017,8 +1002,8 @@ lines(ts(fc_tbats$mean,  start = start(test), frequency = 12), col = "royalblue"
 legend("topleft", legend = c("Actual (test)", "SARIMA", "ETS", "TBATS"),
        col = c("grey60","darkgreen","firebrick","royalblue"), lwd = c(1.2,1.6,1.6,1.6), bty = "n")
 
-#  3) Create a combined CSV of actual vs forecasts and errors
-# Align times and build a data.frame
+
+
 test_time <- time(test)
 
 
@@ -1047,7 +1032,7 @@ write.csv(df_forecasts, "czech_forecasts_vs_actuals.csv", row.names = FALSE)
 
 print(df_forecasts)
 
-# 7) print summary error metrics 
+
 sarima_rmse <- round(sqrt(mean((df_forecasts$sarima_err)^2, na.rm = TRUE)), 2)
 sarima_mae  <- round(mean(df_forecasts$sarima_abs, na.rm = TRUE), 2)
 
@@ -1061,7 +1046,7 @@ cat("Test RMSE / MAE (SARIMA):", sarima_rmse, "/", sarima_mae, "\n")
 cat("Test RMSE / MAE (ETS):   ", ets_rmse, "/", ets_mae, "\n")
 cat("Test RMSE / MAE (TBATS): ", tbats_rmse, "/", tbats_mae, "\n")
 
-# 8) simple per-month absolute error plot (matrix style)
+
 library(ggplot2)
 df_long <- df_forecasts %>%
   mutate(month = format(as.Date(as.yearmon(time)), "%Y-%m")) %>%
